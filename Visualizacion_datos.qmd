@@ -1,0 +1,69 @@
+---
+title: Visualizacion de datos con Seaborn
+author: Dixon Jiménez Pérez
+format: 
+  html:
+    code-fold: true
+    theme: cosmo
+---
+
+## Importación de Librerias ##
+```{python}
+
+#Importación de las librerias necesarias para graficar y procesar los datos.
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+```
+
+## Lectura de archivos ##
+```{python}
+# cargar datos con la libreria de pandas.
+
+data = pd.read_excel("E:\Documentos Dixon\CETAV\Cuatrimestre lll\Taller de visualización interactiva de datos II\Proyecto_Final_V1.xlsx")
+
+```
+
+## Gráfico 1 ##
+```{python}
+# Categorico
+fig,ax= plt.subplots(figsize=(8,6))
+sns.set_context(context='paper') # Permite cambiar el tamaño de los elemanto que integran el gráfico según la necesidad.
+sns.set_style(style='darkgrid',rc={'axes.label':12,'axes.titlesize':12})# Configuramos el estilo del gráfico.
+sns.violinplot(data=data, x='Segment', y='Sales',inner='quart',fill=False,palette='dark')
+plt.title('Ventas segun Tipo de Cliente',fontsize=16, fontweight= 'bold',loc='center')
+```
+
+## Gráfico 2 ##
+```{python}
+# Relacional
+# Line plot
+fig,ax= plt.subplots(figsize=(8,6))
+sns.set_context(context='paper')
+sns.set_style(style='darkgrid',rc={'axes.label':12,'axes.titlesize':12})
+sns.lmplot(data=data, x='Quantity', y='Profit', scatter_kws={"s": 30, "alpha": 0.5},line_kws={'color':'red','linewidth':2})
+plt.title('Relación entre Profit y Sales',fontsize=16, fontweight= 'bold',loc='center')
+```
+
+
+## Gráfico 3 ##
+
+```{python}
+#  Distribucion
+
+fig,ax= plt.subplots(figsize=(8,6))
+sns.set_context(context='paper')
+sns.set_style(style='darkgrid')
+sns.histplot(data=data, x='Sales',color='slateblue',linewidth=1.5,kde=True)
+plt.title('Distribución de ventas',fontsize=16, fontweight= 'bold',loc='center')# Título
+ax.set_facecolor("gainsboro")# Cambia color de fondo de figura
+ax.tick_params(axis='both', which='major', labelsize=12)# Personalizar etiquetas de ejes (x,y).
+ax.set_xlabel("Sales", fontsize=14)
+ax.set_ylabel("Count", fontsize=14)
+```
+
+## Aprendizajes y Desafíos ##
+```{text}
+Durante el proceso de creación del código se refresco conocimiento ya previamente adquirido en cuatrimestres anteriores, lo cual me pareció excelente, y por otra parte los desafíos enfrentados se encontraron en aprender más a profundidad otra herramienta como seaborn la cual nos entrega una mayor personalización de los gráficos, lo cual me conllevó una investigación más amplia de que cosas me permitía hacer al gráfico.
+```
