@@ -3,8 +3,14 @@ title: Visualizacion de datos con Seaborn
 author: Dixon Jiménez Pérez
 format: 
   pdf:    
-    geometry: margin=1in 
+    geometry: 
+      - top=30mm
+      - left=25mm
     fontsize: 10pt
+    code-line-numbers: true
+    code-block-border-left: true
+    fig-align: center
+pdf-engine: latexmk
 ---
 
 
@@ -46,7 +52,8 @@ sns.set_style(style='darkgrid',
             rc={'axes.label':12,'axes.titlesize':12})
 sns.lmplot(data=data, x='Quantity', y='Profit',
 scatter_kws={"s": 30, "alpha": 0.5},
-          line_kws={'color':'red','linewidth':2})
+          line_kws={'color':'red','linewidth':2},
+          height=4,aspect=1.5)
 plt.title('Relación entre Profit y Sales',
           fontsize=16, fontweight= 'bold',loc='center')
 ```
@@ -66,7 +73,7 @@ plt.title('Distribución de ventas',fontsize=16, fontweight= 'bold',loc='center'
 # Cambia color de fondo de figura
 ax.set_facecolor("gainsboro")
 # Personalizar etiquetas de ejes (x,y).
-ax.tick_params(axis='both', which='major', labelsize=12)
+
 ax.set_xlabel("Sales", fontsize=14)
 ax.set_ylabel("Count", fontsize=14)
 ```
