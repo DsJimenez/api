@@ -10,7 +10,6 @@ format:
     code-line-numbers: true
     code-block-border-left: true
     fig-align: center
-pdf-engine: latexmk
 ---
 
 
