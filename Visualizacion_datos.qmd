@@ -21,12 +21,16 @@ format:
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
 ```
 
 ## Lectura de archivos ##
 ```{python}
 # cargar datos con la libreria de pandas.
-data = pd.read_excel("E:/Documentos Dixon/CETAV/Cuatrimestre lll/Taller de visualización interactiva de datos II/Proyecto_Final_V1.xlsx")
+ruta_1 = 'E:/Documentos Dixon/CETAV/Cuatrimestre lll/Taller_de_Programacion_para_analisis_de_datos_II/'
+ruta_2 = './tarea_api/api/'
+directory= os.path.join(ruta_1,ruta_2)
+data = pd.read_excel('Proyecto_Final_V1.xlsx')
 ```
 
 ## Gráfico 1 ##
@@ -59,7 +63,6 @@ plt.title('Relación entre Profit y Sales',
 
 
 ## Gráfico 3 ##
-
 ```{python}
 #  Distribucion
 
