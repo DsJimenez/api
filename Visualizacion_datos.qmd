@@ -1,0 +1,93 @@
+---
+title: Visualizacion de datos con Seaborn
+author: Dixon Jiménez Pérez
+format: 
+  pdf:    
+    geometry: 
+      - top=30mm
+      - left=25mm
+    fontsize: 10pt
+    code-line-numbers: true
+    code-block-border-left: true
+    fig-align: center
+---
+
+
+## Importación de Librerias ##
+```{python}
+
+#Importación de las librerias necesarias para graficar y procesar los datos.
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import os
+```
+
+## Lectura de archivos ##
+```{python}
+# cargar datos con la libreria de pandas.
+ruta_1 = 'E:/Documentos Dixon/CETAV/Cuatrimestre lll/Taller_de_Programacion_para_analisis_de_datos_II/'
+ruta_2 = './tarea_api/api/'
+directory= os.path.join(ruta_1,ruta_2)
+data = pd.read_excel('Proyecto_Final_V1.xlsx')
+```
+
+## Gráfico 1 ##
+```{python}
+# Categorico
+fig,ax= plt.subplots(figsize=(8,6))
+# Permite cambiar el tamaño de los elemanto que integran el gráfico.
+sns.set_context(context='paper')
+# Configuramos el estilo del gráfico.
+sns.set_style(style='darkgrid',rc={'axes.label':12,'axes.titlesize':12})
+sns.violinplot(data=data, x='Segment', y='Sales',inner='quart',fill=False)
+plt.title('Ventas segun Tipo de Cliente',fontsize=16,
+fontweight= 'bold',loc='center')
+```
+
+## Gráfico 2 ##
+```{python}
+# Relacional
+# Line plot
+sns.set_context(context='paper')
+sns.set_style(style='darkgrid',
+            rc={'axes.label':12,'axes.titlesize':12})
+sns.lmplot(data=data, x='Quantity', y='Profit',
+scatter_kws={"s": 30, "alpha": 0.5},
+          line_kws={'color':'red','linewidth':2},
+          height=4,aspect=1.5)
+plt.title('Relación entre Profit y Sales',
+          fontsize=16, fontweight= 'bold',loc='center')
+```
+
+
+## Gráfico 3 ##
+```{python}
+#  Distribucion
+
+fig,ax= plt.subplots(figsize=(8,6))
+sns.set_context(context='paper')
+sns.set_style(style='darkgrid')
+sns.histplot(data=data, x='Sales',color='slateblue',linewidth=1.5,kde=True)
+# Título
+plt.title('Distribución de ventas',fontsize=16, fontweight= 'bold',loc='center')
+# Cambia color de fondo de figura
+ax.set_facecolor("gainsboro")
+# Personalizar etiquetas de ejes (x,y).
+
+ax.set_xlabel("Sales", fontsize=14)
+ax.set_ylabel("Count", fontsize=14)
+```
+
+## Aprendizajes y Desafíos ##
+```{text}
+Durante el proceso de creación del código se refresco conocimiento ya previamente
+adquirido en cuatrimestres anteriores,
+lo cual me pareció excelente, y por otra parte los desafíos enfrentados
+se encontraron en aprender más a profundidad
+otra herramienta como seaborn la cual nos entrega una mayor personalización
+de los gráficos,
+lo cual me conllevó una investigación más amplia de que cosas me permitía hacer
+al gráfico.
+```

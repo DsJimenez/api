@@ -1,0 +1,87 @@
+---
+title: Webscraping
+author: Dixon Jiménez Pérez
+format: 
+  pdf:    
+    geometry: 
+      - top=30mm
+      - left=25mm
+    fontsize: 10pt
+    code-line-numbers: true
+    code-block-border-left: true
+    fig-align: center
+---
+
+```{python}
+
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+```
+
+
+```{python}
+
+web = 'https://www.scrapethissite.com/pages/simple/'
+
+```
+
+```{python}
+
+datos_paises = []
+
+
+navegador = webdriver.Chrome()
+navegador.get(web)
+navegador.maximize_window()
+navegador.implicitly_wait(10)
+
+datos = navegador.find_elements(By.CLASS_NAME, 'country')
+
+
+for dato in datos:
+    pais = dato.find_element(By.CLASS_NAME, 'country-name')
+    capital = dato.find_element(By.CLASS_NAME, 'country-capital')
+    poblacion = dato.find_element(By.CLASS_NAME, 'country-population')
+    area = dato.find_element(By.CLASS_NAME, 'country-area')
+    
+    datos_paises.append({
+        'País': pais.text,
+        'Capital': capital.text,
+        'Población': poblacion.text,
+        'Área(Km2)': area.text
+    })
+    
+navegador.quit()
+
+```
+
+
+```{python}
+
+df = pd.DataFrame(datos_paises)
+
+print(df)
+
+
+url= 'E:\\Documentos Dixon\\CETAV\\Cuatrimestre lll\\Taller_de_Programacion_para_analisis_de_datos_II\\'
+df.to_excel(url+'Paises_v1.xlsx', index=False)
+
+```
+
+```{text}
+¿Qué funciones del código conocían antes de hacer el script?
+- La mayoria, desde para que son las librerias importadas, el navegar por la pagina, la iteracion para la anexación de los datos, y la transformacion de una serie a Dataframe.
+
+¿Entendió algo nuevo con respecto a lo que ya conocía?
+- Es de suma importancia estudiar con antelación la pagina.
+
+¿Qué funciones nuevas aprendió? Definalas en sus propias palabras.
+- La función aprendida fue la maximizar la pagina.
+
+¿Necesitó nuevos conceptos para crear el script? Definalos en sus propias palabras.
+- en este script no, pero en el primer intento con un nivel más avanzado si,
+uno de los conceptos fue "pseudo-elemento".
+
+```
