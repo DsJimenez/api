@@ -1,0 +1,68 @@
+---
+title: Vizualización
+format: 
+  pdf:
+    theme: cosmo    
+    geometry: 
+      - top=30mm
+      - left=25mm
+    fontsize: 10pt
+    code-line-numbers: true
+    code-block-border-left: true
+    fig-align: center
+---
+
+## *Librerias*
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+```
+
+## *Datos*
+```{python}
+pais= pd.read_csv('Country_data.csv')
+```
+
+## *Columna Nueva*
+- Cantidad de personas por kilometro cuadrado.
+```{python}
+pais['Densidad Poblacional'] = (pais['Población'] / pais['Área(Km2)']).round(1)
+```
+
+## *Gráfico Categórico*
+
+```{python}
+plt.figure(figsize=(10, 8))
+# Genearmos un gráfico de barras con un top 20 de paises con más población.
+sns.barplot(x='Densidad Poblacional', y='País', data=pais.nlargest(20, 'Población'))
+plt.title('Top 20 paises por poblacion')
+plt.tight_layout()
+plt.show()
+```
+
+## *Gráfico Relacional*
+
+```{python}
+plt.figure(figsize=(10, 8))
+sns.scatterplot(x='Área(Km2)', y='Población', data=pais)
+plt.title('Población vs Área')
+plt.tight_layout()
+plt.show()
+```
+
+## *Gráfico de Distribucion*
+
+```{python}
+plt.figure(figsize=(10, 8))
+sns.histplot(pais['Población'], kde=True)
+plt.title('Distribución de la Población')
+plt.tight_layout()
+plt.show()
+```
+
+```{text}
+Dentro de los desafíos afrontados fue el manejo, y entender las apis, y manejo de las estructuras de las paginas web para realizar el scraping de los datos, lo cual me lleva a decir que si es justo y necesario navegar la web de la cual se quiere extraer los datos, para conocer de mejor manera su funcionamiento para poder automatizar el proceso de extracción de los datos de la mejor manera.
+```
+
+	[Repositorio en GitHub](https://github.com/DsJimenez/api)

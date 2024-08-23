@@ -1,0 +1,85 @@
+---
+title: Proyecto - Taller de Programación para el análisis de datos II
+author: Dixon Jiménez Pérez
+subtitle: Web Scraping
+format: 
+  pdf:
+    theme: cosmo    
+    geometry: 
+      - top=30mm
+      - left=25mm
+    fontsize: 10pt
+    code-line-numbers: true
+    code-block-border-left: true
+    fig-align: center
+---
+
+## *Librerias para trabajar el Web Scraping*
+```{python}
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import os
+```
+
+## *Pagina a realizar scraping*
+```{python}
+web = 'https://www.scrapethissite.com/pages/simple/'
+```
+
+## *Scrapeo y Anexado de datos a Array vacio*
+```{python}
+# Lista vacia para posterior llenado.
+datos_paises = []
+
+# Navegador con el cual se va a trabajar.
+navegador = webdriver.Chrome()
+
+# Apertura del navegador.
+navegador.get(web)
+
+# Maximizacion de la ventana.
+navegador.maximize_window()
+
+# Espera implicita aplicada al nevegador.
+navegador.implicitly_wait(10)
+
+# Variable que contiene los datos en html.
+datos = navegador.find_elements(By.CLASS_NAME, 'country')
+
+# Ciclo que me permite extraer los datos que necesito, y almacenados
+# dentro de una variable para luego ser anexados en la lista 
+# de datos vacia previamente creada, y por ultimo se cierra el
+# navegador.
+
+for dato in datos:
+    pais = dato.find_element(By.CLASS_NAME, 'country-name').text
+    capital = dato.find_element(By.CLASS_NAME, 'country-capital').text
+    poblacion = dato.find_element(By.CLASS_NAME, 'country-population').text
+    area = dato.find_element(By.CLASS_NAME, 'country-area').text
+    
+    datos_paises.append({
+        'País': pais,
+        'Capital': capital,
+        'Población': poblacion,
+        'Área(Km2)': area
+    })
+    
+navegador.quit()
+```
+
+
+## *Gaurdado y exportado de los datos en formato csv*
+```{python}
+# Se transforma a data frame de primero, luego optenemos el directorio
+# en donde se en cuentra el script que se esta ejecutando, con esta misma
+# la utilizaremos para guardar el archivo csv que se va a exportar, dandole el nombre.
+
+df = pd.DataFrame(datos_paises)
+
+script_dir = os.getcwd()
+
+csv_path = os.path.join(script_dir, "Country_data.csv")
+
+df.to_csv(csv_path, index=False)
+```
